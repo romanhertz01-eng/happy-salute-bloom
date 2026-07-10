@@ -1,208 +1,143 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Layout } from "@/components/layout/Layout";
-import { ScoreCell } from "@/components/rating/ScoreCell";
-import { getServiceBySlug } from "@/data/services";
-import { formatText } from "@/components/rating/formatters";
-import { LinkHub } from "@/components/home/LinkHub";
-import type { CardService } from "@/lib/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { ArrowLeft, ShieldCheck } from "lucide-react";
+
+import { SiteHeader } from "@/components/nhcard/Header";
+import { SiteFooter } from "@/components/nhcard/Footer";
+import { cardBySlugQueryOptions, formatDate, initials } from "@/lib/cards";
 
 export const Route = createFileRoute("/cards/$slug")({
-  loader: ({ params }) => {
-    const service = getServiceBySlug(params.slug);
-    if (!service) throw notFound();
-    return { service };
-  },
   head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [
-          { title: "Сервис не найден — Мониторинг карт" },
-          { name: "robots", content: "noindex" },
-        ],
-      };
-    }
-    const { service } = loaderData;
-    const title = `${service.name} — обзор и тарифы 2026`;
-    const description = `Демонстрационный обзор сервиса ${service.name}: тарифы, инструкция выпуска, поддерживаемые сервисы.`;
+    const name = (loaderData as { name?: string } | undefined)?.name ?? "Карта";
     return {
       meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
+        { title: `${name} — обзор и тарифы · NHcard` },
+        { name: "description", content: `Условия, лимиты и способы пополнения карты ${name}. Проверено редакцией NHcard.` },
       ],
     };
   },
-  notFoundComponent: NotFound,
+  loader: async ({ context, params }) => {
+    const card = await context.queryClient.ensureQueryData(cardBySlugQueryOptions(params.slug));
+    if (!card) throw notFound();
+    return { name: card.name };
+  },
   component: CardPage,
-});
-
-function NotFound() {
-  return (
-    <Layout>
-      <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-        <h1 className="text-2xl font-semibold text-foreground">Сервис не найден</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Возможно, страница была удалена или адрес указан неверно.
-        </p>
-        <Link
-          to="/"
-          className="mt-6 inline-block rounded-md border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
-        >
+  notFoundComponent: () => (
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <div className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <h1 className="font-serif text-3xl font-bold text-primary">Карта не найдена</h1>
+        <p className="mt-3 text-muted-foreground">Проверьте адрес или вернитесь к рейтингу.</p>
+        <Link to="/" className="mt-6 inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground">
           К рейтингу
         </Link>
       </div>
-    </Layout>
-  );
-}
+      <SiteFooter />
+    </div>
+  ),
+  errorComponent: ({ error }) => (
+    <div className="p-10 text-center text-sm text-muted-foreground">Ошибка: {error.message}</div>
+  ),
+});
 
 function CardPage() {
-  const { service } = Route.useLoaderData() as { service: CardService };
+  const { slug } = Route.useParams();
+  const { data: card } = useSuspenseQuery(cardBySlugQueryOptions(slug));
+  if (!card) return null;
+
+  const rows: [string, string | null][] = [
+    ["Страна выпуска", card.issuer_country],
+    ["Банк-эмитент", card.bank],
+    ["Платёжная система", card.payment_system],
+    ["Стоимость выпуска", card.issue_cost],
+    ["Обслуживание", card.service_cost],
+    ["Комиссия пополнения", card.topup_fee],
+    ["Способы пополнения", (card.topup_methods ?? []).join(", ") || null],
+    ["Валюты карты", (card.card_currency ?? []).join(", ") || null],
+    ["Лимит в месяц", card.monthly_limit],
+    ["Скорость выпуска", card.issue_speed],
+    ["KYC", card.kyc ? "требуется" : "не требуется"],
+    ["Apple Pay", card.apple_pay ? "поддерживается" : "нет"],
+    ["Google Pay", card.google_pay ? "поддерживается" : "нет"],
+    ["BIN страны", card.bin_country],
+    ["Поддерживаемых сервисов", String(card.supported_services_count ?? 0)],
+  ];
 
   return (
-    <Layout>
-      <div className="mx-auto max-w-4xl px-6 py-8">
-        <nav className="text-sm text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">
-            Главная
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-foreground">{service.name}</span>
-        </nav>
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main>
+        <section className="border-b border-border bg-surface">
+          <div className="mx-auto max-w-[1040px] px-4 py-12 sm:px-6 lg:px-8">
+            <Link to="/" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary">
+              <ArrowLeft className="h-4 w-4" /> К рейтингу
+            </Link>
 
-        <section className="mt-6 flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-              {service.name}
-            </h1>
-            <div className="mt-2 text-sm text-muted-foreground">
-              {service.country} · {service.network === "visa" ? "Visa" : "Mastercard"}
+            <div className="flex flex-wrap items-start gap-5">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-border bg-background font-serif text-xl font-bold text-primary">
+                {initials(card.name)}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  Место в рейтинге · #{card.rank}
+                </div>
+                <h1 className="mt-1 font-serif text-4xl font-bold tracking-tight text-primary">{card.name}</h1>
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                  <span>{card.payment_system}</span>
+                  <span aria-hidden>·</span>
+                  <span>{card.bank}</span>
+                  <span aria-hidden>·</span>
+                  <span>{card.issuer_country}</span>
+                  {card.verified && (
+                    <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-accent">
+                      <ShieldCheck className="h-3 w-3" /> Проверено
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="font-serif text-4xl font-bold text-primary">
+                  {Number(card.editorial_score).toFixed(1)}
+                </div>
+                <div className="text-xs text-muted-foreground">{card.reviews_count} отзывов</div>
+              </div>
             </div>
-            <div className="mt-3 flex items-center gap-4">
-              <ScoreCell reviews={service.reviews} />
-              <span
-                aria-disabled="true"
-                className="cursor-not-allowed text-sm text-muted-foreground opacity-60"
-                title="Страница отзывов появится позже"
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={card.affiliate_url ?? "#"}
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                className="inline-flex h-11 items-center rounded-md bg-accent px-6 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
               >
-                Отзывы →
+                Оформить на сайте эмитента
+              </a>
+              <span className="inline-flex h-11 items-center rounded-md border border-border bg-background px-4 text-xs text-muted-foreground">
+                Проверено {formatDate(card.last_checked)}
               </span>
             </div>
           </div>
-          <a
-            href={service.affiliateUrl}
-            target="_blank"
-            rel="noopener noreferrer nofollow sponsored"
-            className="rounded-md bg-foreground px-5 py-2.5 text-sm text-background hover:opacity-90"
-          >
-            Оформить
-          </a>
         </section>
 
-        <section className="mt-8">
-          <h2 className="text-lg font-semibold text-foreground">Обзор</h2>
-          <p className="mt-3 text-sm leading-relaxed text-foreground">
-            {service.description}
+        <section className="mx-auto max-w-[1040px] px-4 py-12 sm:px-6 lg:px-8">
+          <h2 className="font-serif text-2xl font-bold text-primary">Тарифы и условия</h2>
+          <div className="mt-6 overflow-hidden rounded-lg border border-border bg-background shadow-sm">
+            <dl className="divide-y divide-border">
+              {rows.map(([label, value]) => (
+                <div key={label} className="grid grid-cols-1 gap-1 px-5 py-3 sm:grid-cols-[240px_1fr] sm:gap-6">
+                  <dt className="text-sm text-muted-foreground">{label}</dt>
+                  <dd className="text-sm font-medium text-foreground">{value ?? "—"}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <p className="mt-6 text-xs text-muted-foreground">
+            NHcard не является эмитентом карты. Условия могут меняться — проверяйте информацию на сайте эмитента.
           </p>
-
-          <div className="mt-4">
-            <div className="text-xs uppercase tracking-wide text-muted-foreground">
-              Где платить
-            </div>
-            {service.payableServices.length === 0 ? (
-              <div className="mt-2 text-sm text-muted-foreground">нет данных</div>
-            ) : (
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {service.payableServices.map((s) => (
-                  <span
-                    key={s.id}
-                    className="rounded border border-border px-2 py-0.5 text-xs text-foreground"
-                  >
-                    {s.name}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-md border border-border p-4">
-              <div className="text-sm font-medium text-foreground">Плюсы</div>
-              {service.pros.length === 0 ? (
-                <div className="mt-2 text-sm text-muted-foreground">нет данных</div>
-              ) : (
-                <ul className="mt-2 space-y-1 text-sm text-foreground">
-                  {service.pros.map((p, i) => (
-                    <li key={i}>• {p}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <div className="rounded-md border border-border p-4">
-              <div className="text-sm font-medium text-foreground">Минусы</div>
-              {service.cons.length === 0 ? (
-                <div className="mt-2 text-sm text-muted-foreground">нет данных</div>
-              ) : (
-                <ul className="mt-2 space-y-1 text-sm text-foreground">
-                  {service.cons.map((c, i) => (
-                    <li key={i}>• {c}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <div className="text-xs uppercase tracking-wide text-muted-foreground">Итог</div>
-            <p className="mt-2 text-sm text-foreground">{service.verdict}</p>
-          </div>
         </section>
-
-        <section className="mt-10">
-          <h2 className="text-lg font-semibold text-foreground">Тарифы</h2>
-          {service.tariffs.length === 0 ? (
-            <p className="mt-3 text-sm text-muted-foreground">нет данных</p>
-          ) : (
-            <ul className="mt-3 divide-y divide-border border-y border-border">
-              {service.tariffs.map((t, i) => (
-                <li key={i} className="grid grid-cols-3 gap-4 py-3 text-sm">
-                  <span className="font-medium text-foreground">{t.name}</span>
-                  <span className="text-foreground">{formatText(t.price)}</span>
-                  <span className="text-muted-foreground">{formatText(t.conditions)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-
-        <section className="mt-10">
-          <h2 className="text-lg font-semibold text-foreground">Как выпустить</h2>
-          {service.issueSteps.length === 0 ? (
-            <p className="mt-3 text-sm text-muted-foreground">нет данных</p>
-          ) : (
-            <ol className="mt-3 space-y-2 text-sm text-foreground">
-              {service.issueSteps.map((step, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="text-muted-foreground">{i + 1}.</span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-          )}
-        </section>
-
-        {/* К7 Перелинковка (FM-82). */}
-        <LinkHub title="Где ещё сравнить" />
-
-        <div className="mt-12">
-          <Link
-            to="/"
-            className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-          >
-            ← Вернуться к рейтингу
-          </Link>
-        </div>
-      </div>
-    </Layout>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }

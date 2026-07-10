@@ -93,8 +93,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Мониторинг зарубежных виртуальных карт" },
       { name: "twitter:description", content: "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/825b2bde-9b95-4373-9438-d92621234bfa/id-preview-283c68c3--6cbf0cec-e00f-41f2-a3e8-db7cb76cc08d.lovable.app-1783669408370.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/825b2bde-9b95-4373-9438-d92621234bfa/id-preview-283c68c3--6cbf0cec-e00f-41f2-a3e8-db7cb76cc08d.lovable.app-1783669408370.png" },
     ],
     links: [
       {
@@ -102,6 +100,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
