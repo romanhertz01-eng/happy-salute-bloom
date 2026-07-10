@@ -4,7 +4,7 @@ import { formatToday } from "@/lib/cards";
 export function Hero({ total }: { total: number }) {
   return (
     <section className="border-b border-border bg-surface">
-      <div className="mx-auto grid max-w-[1240px] gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.35fr_1fr] lg:gap-16 lg:px-8 lg:py-20">
+      <div className="mx-auto grid max-w-[1240px] items-start gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.35fr_1fr] lg:gap-16 lg:px-8 lg:py-12">
         <div>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
@@ -46,7 +46,7 @@ export function Hero({ total }: { total: number }) {
           </div>
         </div>
 
-        <aside className="rounded-lg border border-border bg-background p-6 shadow-sm">
+        <aside className="self-start rounded-lg border border-border bg-background p-6 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Кто составляет рейтинг
           </div>
