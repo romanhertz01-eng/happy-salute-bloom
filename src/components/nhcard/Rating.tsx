@@ -216,6 +216,9 @@ function TableRow({ card, first }: { card: Card; first: boolean }) {
       <td className="px-3 py-4 align-top text-foreground">{card.topup_fee}</td>
       <td className="px-3 py-4 align-top text-foreground">{card.monthly_limit}</td>
       <td className="px-3 py-4 align-top text-foreground">{card.issue_speed}</td>
+      <td className="hidden px-3 py-4 align-top xl:table-cell">
+        <ServiceChips services={card.top_services ?? []} total={card.supported_services_count ?? 0} />
+      </td>
       <td className="px-3 py-4 align-top text-xs font-mono text-muted-foreground">{card.bin_country}</td>
       <td className="px-3 py-4 align-top">
         <div className="font-serif text-lg font-bold text-primary">{Number(card.editorial_score).toFixed(1)}</div>
