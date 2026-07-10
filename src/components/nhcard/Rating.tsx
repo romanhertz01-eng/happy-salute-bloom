@@ -48,30 +48,41 @@ function speedRank(s: string | null): number {
 export function RatingSection({ cards }: { cards: Card[] }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<SortKey>("rank");
+  const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
     const test = FILTERS.find((f) => f.id === filter)?.test ?? (() => true);
-    const list = cards.filter(test);
+    const q = query.trim().toLowerCase();
+    const list = cards.filter(
+      (c) => test(c) && (q === "" || c.name.toLowerCase().includes(q) || (c.bank ?? "").toLowerCase().includes(q)),
+    );
     const sorted = [...list].sort((a, b) => {
       if (sort === "price") return priceRank(a.issue_cost) - priceRank(b.issue_cost);
       if (sort === "speed") return speedRank(a.issue_speed) - speedRank(b.issue_speed);
       return a.rank - b.rank;
     });
     return sorted;
-  }, [cards, filter, sort]);
+  }, [cards, filter, sort, query]);
 
   return (
     <section id="rating" className="border-b border-border bg-background">
-      <div className="mx-auto max-w-[1240px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <div className="mb-6 flex flex-col gap-3">
+      <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+        <div className="mb-5 flex flex-col gap-2">
           <div className="text-xs font-semibold uppercase tracking-wider text-accent">Рейтинг · 2026</div>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-primary sm:text-4xl">
             15 зарубежных виртуальных карт — от лучших к нишевым
           </h2>
-          <p className="max-w-3xl text-[15px] text-muted-foreground">
-            Сортировка по редакционной оценке. Мы проверяем стоимость выпуска, способы пополнения из России, скорость,
-            поддержку Apple&nbsp;/&nbsp;Google&nbsp;Pay и число рабочих сервисов.
-          </p>
+        </div>
+
+        {/* Search */}
+        <div className="mb-4">
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Поиск по названию или сервису — например, ChatGPT, Netflix, Steam"
+            className="h-11 w-full rounded-md border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
+          />
         </div>
 
         {/* Filter bar */}
