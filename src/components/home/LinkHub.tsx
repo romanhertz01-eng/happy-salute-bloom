@@ -39,20 +39,24 @@ const DEFAULT_GROUPS: Group[] = [
 
 export function LinkHub({ groups = DEFAULT_GROUPS, title }: { groups?: Group[]; title?: string }) {
   return (
-    <section className="mt-16 border-t border-border pt-10">
-      {title && <h2 className="text-xl font-semibold text-foreground">{title}</h2>}
-      <div className={"grid gap-8 sm:grid-cols-3 " + (title ? "mt-6" : "")}>
+    <section className="mt-20 border-t border-border/70 pt-10">
+      {title && (
+        <h2 className="text-[22px] font-medium tracking-tight text-foreground">{title}</h2>
+      )}
+      <div className={"grid gap-x-14 gap-y-10 sm:grid-cols-3 " + (title ? "mt-8" : "")}>
         {groups.map((g) => (
           <div key={g.title}>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground">{g.title}</div>
-            <ul className="mt-3 space-y-2 text-sm">
+            <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/80">
+              {g.title}
+            </div>
+            <ul className="mt-4 space-y-2.5 text-[13.5px]">
               {g.items.map((it) => (
                 <li key={it.to}>
                   <a
                     href={it.to}
                     aria-disabled="true"
                     onClick={(e) => e.preventDefault()}
-                    className="cursor-not-allowed text-foreground opacity-60 hover:underline"
+                    className="cursor-not-allowed text-foreground/70 transition-colors hover:text-foreground"
                     title="Страница появится позже"
                   >
                     {it.label}
