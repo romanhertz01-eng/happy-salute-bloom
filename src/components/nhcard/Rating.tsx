@@ -181,7 +181,13 @@ function TableRow({ card, first }: { card: Card; first: boolean }) {
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-primary">{card.name}</span>
+              <Link
+                to="/cards/$slug"
+                params={{ slug: card.slug }}
+                className="font-semibold text-primary hover:underline"
+              >
+                {card.name}
+              </Link>
               {card.verified && (
                 <ShieldCheck className="h-3.5 w-3.5 text-accent" aria-label="проверено" />
               )}
@@ -262,7 +268,13 @@ function MobileCard({ card, first }: { card: Card; first: boolean }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="truncate font-semibold text-primary">{card.name}</h3>
+            <Link
+              to="/cards/$slug"
+              params={{ slug: card.slug }}
+              className="truncate font-semibold text-primary hover:underline"
+            >
+              {card.name}
+            </Link>
             {card.verified && <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-accent" />}
           </div>
           <div className="text-xs text-muted-foreground">
