@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { ScoreCell } from "@/components/rating/ScoreCell";
 import { getServiceBySlug } from "@/data/services";
 import { formatText } from "@/components/rating/formatters";
+import type { CardService } from "@/lib/types";
 
 export const Route = createFileRoute("/cards/$slug")({
   loader: ({ params }) => {
@@ -55,7 +56,7 @@ function NotFound() {
 }
 
 function CardPage() {
-  const { service } = Route.useLoaderData();
+  const { service } = Route.useLoaderData() as { service: CardService };
 
   return (
     <Layout>
