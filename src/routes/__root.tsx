@@ -81,16 +81,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Независимый мониторинг зарубежных виртуальных карт для пользователей из России.",
+          "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов.",
       },
       { property: "og:title", content: "Мониторинг зарубежных виртуальных карт" },
       {
         property: "og:description",
         content:
-          "Независимый мониторинг зарубежных виртуальных карт для пользователей из России.",
+          "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Мониторинг зарубежных виртуальных карт" },
+      { name: "twitter:description", content: "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/825b2bde-9b95-4373-9438-d92621234bfa/id-preview-283c68c3--6cbf0cec-e00f-41f2-a3e8-db7cb76cc08d.lovable.app-1783669408370.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/825b2bde-9b95-4373-9438-d92621234bfa/id-preview-283c68c3--6cbf0cec-e00f-41f2-a3e8-db7cb76cc08d.lovable.app-1783669408370.png" },
     ],
     links: [
       {
