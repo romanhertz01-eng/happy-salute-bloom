@@ -9,17 +9,17 @@ export function ServicesCell({ items }: { items: PayableService[] }) {
   const shown = items.slice(0, 2);
   const rest = items.length - shown.length;
   return (
-    <div className="flex flex-wrap items-center gap-1.5 text-sm">
+    <div className="flex flex-wrap items-center gap-1 text-sm">
       {shown.map((s) => (
         <span
           key={s.id}
-          className="rounded border border-border px-1.5 py-0.5 text-xs text-foreground"
+          className="inline-flex h-[22px] items-center rounded-md border border-border/70 bg-muted/40 px-2 text-[11.5px] font-medium text-foreground/85"
         >
           {s.name}
         </span>
       ))}
       {rest > 0 && (
-        <span className="text-xs text-muted-foreground">+{rest}</span>
+        <span className="text-[11.5px] font-medium text-muted-foreground/80">+{rest}</span>
       )}
     </div>
   );
