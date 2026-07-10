@@ -137,6 +137,7 @@ export function RatingSection({ cards }: { cards: Card[] }) {
                 <th className="px-3 py-3">Пополнение</th>
                 <th className="px-3 py-3">Лимит/мес</th>
                 <th className="px-3 py-3">Скорость</th>
+                <th className="hidden px-3 py-3 xl:table-cell">Сервисы</th>
                 <th className="px-3 py-3">BIN</th>
                 <th className="px-3 py-3">Оценка</th>
                 <th className="py-3 pr-4"></th>
