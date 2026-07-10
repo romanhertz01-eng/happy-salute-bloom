@@ -8,6 +8,9 @@ import {
 } from "@/components/rating/FilterPanel";
 import { RatingTable } from "@/components/rating/RatingTable";
 import { SERVICES, getAllPayableServices } from "@/data/services";
+import { Longread } from "@/components/home/Longread";
+import { Faq } from "@/components/home/Faq";
+import { LinkHub } from "@/components/home/LinkHub";
 
 const YEAR = 2026;
 
@@ -92,6 +95,11 @@ function Index() {
             .
           </p>
         </section>
+
+        {/* Б5 Лонгрид · Б6 FAQ · Б7 Перелинковка-хаб (MASTER_PRD §6.1). */}
+        <Longread />
+        <Faq />
+        <LinkHub title="Смотрите также" />
       </div>
     </Layout>
   );

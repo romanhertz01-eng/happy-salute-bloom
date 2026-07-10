@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { ScoreCell } from "@/components/rating/ScoreCell";
 import { getServiceBySlug } from "@/data/services";
 import { formatText } from "@/components/rating/formatters";
+import { LinkHub } from "@/components/home/LinkHub";
 import type { CardService } from "@/lib/types";
 
 export const Route = createFileRoute("/cards/$slug")({
@@ -189,6 +190,9 @@ function CardPage() {
             </ol>
           )}
         </section>
+
+        {/* К7 Перелинковка (FM-82). */}
+        <LinkHub title="Где ещё сравнить" />
 
         <div className="mt-12">
           <Link
