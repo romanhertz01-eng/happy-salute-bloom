@@ -301,6 +301,11 @@ function MobileCard({ card, first }: { card: Card; first: boolean }) {
         <Row label="Скорость" value={card.issue_speed} />
         <Row label="BIN" value={card.bin_country} mono />
       </dl>
+      {(card.top_services ?? []).length > 0 && (
+        <div className="mt-3 border-t border-border pt-3">
+          <ServiceChips services={card.top_services ?? []} total={card.supported_services_count ?? 0} />
+        </div>
+      )}
 
       <div className="mt-4 flex gap-2">
         <Link
@@ -328,6 +333,49 @@ function Row({ label, value, mono }: { label: string; value: string | null; mono
     <div className="flex items-baseline justify-between gap-3">
       <dt className="text-muted-foreground">{label}</dt>
       <dd className={`text-right font-medium text-foreground ${mono ? "font-mono" : ""}`}>{value ?? "—"}</dd>
+    </div>
+  );
+}
+
+const SERVICE_COLORS = [
+  "bg-[#1A2B4A] text-white",
+  "bg-[#8B2E3C] text-white",
+  "bg-[#2F5D50] text-white",
+  "bg-[#6B4E9B] text-white",
+  "bg-[#B8742A] text-white",
+  "bg-[#3B6EA5] text-white",
+];
+
+function serviceColor(name: string) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return SERVICE_COLORS[h % SERVICE_COLORS.length];
+}
+
+function serviceInitials(name: string) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  return name.slice(0, 2).toUpperCase();
+}
+
+function ServiceChips({ services, total }: { services: string[]; total: number }) {
+  const shown = services.slice(0, 4);
+  const remaining = Math.max(0, total - shown.length);
+  if (shown.length === 0) return <span className="text-xs text-muted-foreground">—</span>;
+  return (
+    <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1">
+        {shown.map((s) => (
+          <span
+            key={s}
+            title={s}
+            className={`inline-flex h-6 w-6 items-center justify-center rounded-md text-[9px] font-bold tracking-tight ${serviceColor(s)}`}
+          >
+            {serviceInitials(s)}
+          </span>
+        ))}
+      </div>
+      {remaining > 0 && <span className="text-xs font-medium text-muted-foreground">+{remaining}</span>}
     </div>
   );
 }
