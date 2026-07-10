@@ -11,12 +11,15 @@ const NAV = [
 
 export function Header() {
   return (
-    <header className="border-b border-border bg-background">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <Link to="/" className="text-base font-semibold tracking-tight text-foreground">
-          Мониторинг карт
+    <header className="border-b border-border/70 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
+        <Link
+          to="/"
+          className="text-[15px] font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
+        >
+          Мониторинг&nbsp;карт
         </Link>
-        <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+        <nav className="flex items-center gap-7 text-[13.5px] text-foreground/70">
           {NAV.map((item) =>
             item.to === "/" ? (
               <Link
@@ -34,7 +37,7 @@ export function Header() {
                 key={item.to}
                 href={item.to}
                 aria-disabled="true"
-                className="cursor-not-allowed opacity-60"
+                className="cursor-not-allowed opacity-70 transition-colors hover:text-foreground"
                 onClick={(e) => e.preventDefault()}
               >
                 {item.label}

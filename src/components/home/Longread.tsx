@@ -37,47 +37,57 @@ const FUNDING: { method: string; pros: string[]; cons: string[] }[] = [
 
 export function Longread() {
   return (
-    <section className="mt-16 space-y-10">
+    <section className="mt-20 space-y-14">
       <div>
-        <h2 className="text-xl font-semibold text-foreground">Кому подходит зарубежная виртуальная карта</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h2 className="text-[22px] font-medium tracking-tight text-foreground">
+          Кому подходит зарубежная виртуальная карта
+        </h2>
+        <p className="mt-2 max-w-[42rem] text-[14px] leading-relaxed text-muted-foreground">
           Пять типовых сценариев, ради которых пользователи из России выпускают карту за рубежом.
         </p>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
           {SCENARIOS.map((s) => (
-            <li key={s.title} className="rounded-md border border-border p-4">
-              <div className="text-sm font-medium text-foreground">{s.title}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{s.services}</div>
+            <li
+              key={s.title}
+              className="rounded-xl border border-border/70 bg-card px-4 py-3.5 transition-colors hover:border-foreground/20"
+            >
+              <div className="text-[14.5px] font-medium tracking-tight text-foreground">{s.title}</div>
+              <div className="mt-0.5 text-[12.5px] text-muted-foreground/85">{s.services}</div>
             </li>
           ))}
         </ul>
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold text-foreground">Как оформить карту</h2>
-        <ol className="mt-4 space-y-2 text-sm text-foreground">
+        <h2 className="text-[22px] font-medium tracking-tight text-foreground">Как оформить карту</h2>
+        <ol className="mt-5 grid gap-2 sm:grid-cols-3">
           {ISSUE_STEPS.map((step, i) => (
-            <li key={i} className="flex gap-3">
-              <span className="text-muted-foreground">{i + 1}.</span>
-              <span>{step}</span>
+            <li
+              key={i}
+              className="rounded-xl border border-border/70 bg-card px-4 py-3.5"
+            >
+              <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/80">
+                Шаг {i + 1}
+              </div>
+              <div className="mt-1.5 text-[14px] leading-snug text-foreground">{step}</div>
             </li>
           ))}
         </ol>
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold text-foreground">Как пополнить карту</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <h2 className="text-[22px] font-medium tracking-tight text-foreground">Как пополнить карту</h2>
+        <div className="mt-5 grid gap-3 sm:grid-cols-3">
           {FUNDING.map((f) => (
-            <div key={f.method} className="rounded-md border border-border p-4">
-              <div className="text-sm font-medium text-foreground">{f.method}</div>
-              <div className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">Плюсы</div>
-              <ul className="mt-1 space-y-1 text-sm text-foreground">
-                {f.pros.map((p, i) => <li key={i}>• {p}</li>)}
+            <div key={f.method} className="rounded-xl border border-border/70 bg-card p-4">
+              <div className="text-[14.5px] font-medium tracking-tight text-foreground">{f.method}</div>
+              <div className="mt-3 text-[10.5px] font-medium uppercase tracking-[0.08em] text-muted-foreground/80">Плюсы</div>
+              <ul className="mt-1 space-y-0.5 text-[13px] text-foreground/85">
+                {f.pros.map((p, i) => <li key={i}>— {p}</li>)}
               </ul>
-              <div className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">Минусы</div>
-              <ul className="mt-1 space-y-1 text-sm text-foreground">
-                {f.cons.map((c, i) => <li key={i}>• {c}</li>)}
+              <div className="mt-3 text-[10.5px] font-medium uppercase tracking-[0.08em] text-muted-foreground/80">Минусы</div>
+              <ul className="mt-1 space-y-0.5 text-[13px] text-foreground/85">
+                {f.cons.map((c, i) => <li key={i}>— {c}</li>)}
               </ul>
             </div>
           ))}

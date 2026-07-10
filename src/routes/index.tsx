@@ -56,23 +56,24 @@ function Index() {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-6xl px-6 py-10">
+      <div className="mx-auto max-w-6xl px-6 pt-8 pb-16 sm:pt-10">
         <section>
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="max-w-[42rem] text-[30px] font-medium leading-[1.15] tracking-[-0.02em] text-foreground sm:text-[38px]">
             Зарубежные виртуальные карты — рейтинг {YEAR}
           </h1>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          <p className="mt-3 max-w-[44rem] text-[15px] leading-[1.55] text-muted-foreground">
             Независимый мониторинг сервисов, выпускающих зарубежные виртуальные карты
             для пользователей из России. Мы собираем условия в одну таблицу, чтобы вы
             могли выбрать подходящую карту за пару минут.
           </p>
-          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm text-muted-foreground">
-            <span>В рейтинге: {SERVICES.length} сервисов</span>
+          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[13px] text-muted-foreground">
+            <span>В рейтинге: <span className="text-foreground/80">{SERVICES.length}</span> сервисов</span>
+            <span className="hidden h-3 w-px bg-border sm:inline-block" aria-hidden />
             <span>Мониторинг, а не эмитент: мы не выпускаем и не продаём карты.</span>
           </div>
         </section>
 
-        <section className="mt-8">
+        <section className="mt-6">
           <FilterPanel
             value={filters}
             onChange={setFilters}
@@ -82,7 +83,7 @@ function Index() {
 
           <RatingTable rows={filtered} onReset={reset} />
 
-          <p className="mt-3 text-xs text-muted-foreground">
+          <p className="mt-4 text-xs text-muted-foreground/80">
             Оценка — редакционная.{" "}
             <a
               href="/methodology"

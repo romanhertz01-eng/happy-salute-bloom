@@ -41,25 +41,42 @@ const ITEMS: { q: string; a: string }[] = [
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="mt-16">
-      <h2 className="text-xl font-semibold text-foreground">Частые вопросы</h2>
-      <ul className="mt-4 divide-y divide-border border-y border-border">
+    <section className="mt-20">
+      <h2 className="text-[22px] font-medium tracking-tight text-foreground">Частые вопросы</h2>
+      <ul className="mt-6 overflow-hidden rounded-xl border border-border/70 bg-card">
         {ITEMS.map((it, i) => {
           const isOpen = open === i;
           return (
-            <li key={i}>
+            <li key={i} className="border-b border-border/60 last:border-b-0">
               <button
                 type="button"
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center justify-between gap-4 py-3 text-left text-sm text-foreground hover:text-foreground"
+                className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left text-[14.5px] font-medium tracking-tight text-foreground transition-colors hover:bg-muted/40"
               >
                 <span>{it.q}</span>
-                <span className="text-muted-foreground">{isOpen ? "−" : "+"}</span>
+                <span
+                  aria-hidden
+                  className={
+                    "flex h-5 w-5 shrink-0 items-center justify-center text-muted-foreground transition-transform duration-200 " +
+                    (isOpen ? "rotate-45" : "")
+                  }
+                >
+                  +
+                </span>
               </button>
-              {isOpen && (
-                <p className="pb-4 text-sm leading-relaxed text-muted-foreground">{it.a}</p>
-              )}
+              <div
+                className={
+                  "grid overflow-hidden transition-[grid-template-rows] duration-200 ease-out " +
+                  (isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")
+                }
+              >
+                <div className="min-h-0">
+                  <p className="px-4 pb-4 text-[13.5px] leading-relaxed text-muted-foreground">
+                    {it.a}
+                  </p>
+                </div>
+              </div>
             </li>
           );
         })}

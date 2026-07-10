@@ -12,30 +12,30 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-background">
-      <div className="mx-auto max-w-6xl px-6 py-10 text-sm text-muted-foreground">
-        <p className="max-w-3xl leading-relaxed">
+    <footer className="mt-24 border-t border-border/70 bg-background">
+      <div className="mx-auto max-w-6xl px-6 py-14">
+        <p className="max-w-[44rem] text-[13.5px] leading-[1.65] text-muted-foreground">
           Проект — независимый мониторинг зарубежных виртуальных карт. Мы не являемся
           эмитентом, банком или платёжной системой и не продаём карты. Все данные носят
           демонстрационный характер и подлежат уточнению.
         </p>
-        <p className="mt-4 max-w-3xl leading-relaxed">
-          Официальный канал связи и приём жалоб: <span className="text-foreground">указывается редакцией</span>.
+        <p className="mt-3 max-w-[44rem] text-[13.5px] leading-[1.65] text-muted-foreground">
+          Официальный канал связи и приём жалоб: <span className="text-foreground/85">указывается редакцией</span>.
         </p>
-        <nav className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+        <nav className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[13px]">
           {LINKS.map((l) => (
             <a
               key={l.to}
               href={l.to}
               aria-disabled="true"
               onClick={(e) => e.preventDefault()}
-              className="cursor-not-allowed opacity-60 hover:text-foreground"
+              className="cursor-not-allowed text-foreground/70 transition-colors hover:text-foreground"
             >
               {l.label}
             </a>
           ))}
         </nav>
-        <p className="mt-8 text-xs">© 2026 Мониторинг карт. Демо-версия.</p>
+        <p className="mt-10 text-[12px] text-muted-foreground/70">© 2026 Мониторинг карт. Демо-версия.</p>
       </div>
     </footer>
   );

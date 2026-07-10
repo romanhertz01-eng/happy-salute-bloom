@@ -22,12 +22,14 @@ export function ScoreCell({ reviews }: { reviews: ReviewStats }) {
     lvl === "high"
       ? "font-semibold text-foreground"
       : lvl === "medium"
-        ? "font-medium text-foreground"
-        : "font-medium text-muted-foreground";
+        ? "font-semibold text-foreground"
+        : "font-semibold text-muted-foreground";
   return (
-    <div className="flex flex-col text-sm leading-tight" data-score-level={lvl}>
-      <span className={scoreCls}>{reviews.score.toFixed(1)}</span>
-      <span className="text-xs text-muted-foreground">{reviews.count} отзывов</span>
+    <div className="flex flex-col leading-none" data-score-level={lvl}>
+      <span className={scoreCls + " text-[17px] tabular-nums tracking-tight"}>
+        {reviews.score.toFixed(1)}
+      </span>
+      <span className="mt-1 text-[11px] text-muted-foreground/80">{reviews.count} отзывов</span>
     </div>
   );
 }
