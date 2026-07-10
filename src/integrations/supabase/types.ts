@@ -39,6 +39,7 @@ export type Database = {
           service_cost: string | null
           slug: string
           supported_services_count: number | null
+          top_services: string[]
           topup_fee: string | null
           topup_methods: string[] | null
           verified: boolean
@@ -67,6 +68,7 @@ export type Database = {
           service_cost?: string | null
           slug: string
           supported_services_count?: number | null
+          top_services?: string[]
           topup_fee?: string | null
           topup_methods?: string[] | null
           verified?: boolean
@@ -95,6 +97,7 @@ export type Database = {
           service_cost?: string | null
           slug?: string
           supported_services_count?: number | null
+          top_services?: string[]
           topup_fee?: string | null
           topup_methods?: string[] | null
           verified?: boolean
