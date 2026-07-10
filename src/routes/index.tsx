@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/nhcard/Header";
 import { SiteFooter } from "@/components/nhcard/Footer";
 import { Hero } from "@/components/nhcard/Hero";
 import { RatingSection } from "@/components/nhcard/Rating";
+import { TrustSection } from "@/components/nhcard/Trust";
 import { cardsQueryOptions } from "@/lib/cards";
 
 export const Route = createFileRoute("/")({
@@ -51,6 +52,7 @@ function HomeContent() {
     <>
       <Hero total={cards.length} />
       <RatingSection cards={cards} />
+      <TrustSection />
     </>
   );
 }
