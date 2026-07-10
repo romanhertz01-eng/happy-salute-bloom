@@ -49,7 +49,7 @@ export function Longread() {
           {SCENARIOS.map((s) => (
             <li
               key={s.title}
-              className="rounded-xl border border-border/70 bg-card px-4 py-3.5 transition-colors hover:border-border-strong"
+              className="rounded-xl border border-border/70 bg-card px-4 py-3.5 transition-colors hover:border-foreground/20"
             >
               <div className="text-[14.5px] font-medium tracking-tight text-foreground">{s.title}</div>
               <div className="mt-0.5 text-[12.5px] text-muted-foreground/85">{s.services}</div>

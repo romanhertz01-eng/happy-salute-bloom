@@ -56,13 +56,13 @@ export function FilterPanel({ value, onChange, onReset, payableServices }: Props
         value={value.query}
         onChange={(e) => onChange({ ...value, query: e.target.value })}
         placeholder="Поиск по названию"
-        className="h-9 min-w-[220px] flex-1 rounded-lg border border-transparent bg-muted/50 px-3 text-[13.5px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/80 hover:bg-muted focus:border-border-strong focus:bg-background"
+        className="h-9 min-w-[220px] flex-1 rounded-lg border border-transparent bg-muted/50 px-3 text-[13.5px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/80 hover:bg-muted focus:border-foreground/30 focus:bg-background"
       />
 
       <select
         value={value.serviceId}
         onChange={(e) => onChange({ ...value, serviceId: e.target.value })}
-        className="h-9 rounded-lg border border-transparent bg-muted/50 px-3 pr-8 text-[13.5px] text-foreground outline-none transition-colors hover:bg-muted focus:border-border-strong focus:bg-background"
+        className="h-9 rounded-lg border border-transparent bg-muted/50 px-3 pr-8 text-[13.5px] text-foreground outline-none transition-colors hover:bg-muted focus:border-foreground/30 focus:bg-background"
       >
         <option value="">Оплачиваемый сервис — все</option>
         {payableServices.map((s) => (
