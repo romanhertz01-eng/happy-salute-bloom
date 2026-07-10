@@ -62,20 +62,23 @@ export function RatingTable({ rows, onReset }: Props) {
   }
 
   return (
-    <div className="mt-6">
+    <div className="mt-5">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[1000px] border-collapse text-left text-sm">
+        <table className="w-full min-w-[1000px] border-separate border-spacing-0 text-left text-sm">
           <thead>
-            <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
+            <tr className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground/80">
               {COLUMNS.map((c) => (
-                <th key={c.key} className="whitespace-nowrap px-3 py-3 font-normal">
+                <th
+                  key={c.key}
+                  className="whitespace-nowrap border-b border-border/70 bg-muted/30 px-3 py-2.5 font-medium first:rounded-tl-xl last:rounded-tr-xl"
+                >
                   <span className="inline-flex items-center gap-1">
                     {c.label}
                     {c.tooltip && (
                       <span
                         title={c.tooltip}
                         aria-label={c.tooltip}
-                        className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-border text-[10px] text-muted-foreground"
+                        className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-border/70 text-[10px] text-muted-foreground/80"
                       >
                         i
                       </span>
@@ -91,42 +94,42 @@ export function RatingTable({ rows, onReset }: Props) {
               const isOpen = expanded === row.slug;
               return (
                 <Fragment key={row.slug}>
-                  <tr className="border-b border-border align-middle hover:bg-muted/40">
-                    <td className="px-3 py-4 text-muted-foreground">{number}</td>
-                    <td className="px-3 py-4">
+                  <tr className="group align-middle transition-colors duration-150 hover:bg-muted/40">
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13px] tabular-nums text-muted-foreground/80">{number}</td>
+                    <td className="border-b border-border/50 px-3 py-[18px]">
                       <Link
                         to="/cards/$slug"
                         params={{ slug: row.slug }}
-                        className="font-medium text-foreground hover:underline"
+                        className="text-[15px] font-medium tracking-tight text-foreground decoration-foreground/30 underline-offset-[3px] transition-colors hover:underline"
                       >
                         {row.name}
                       </Link>
-                      <div className="text-xs text-muted-foreground">
+                      <div className="mt-0.5 text-[12px] text-muted-foreground/80">
                         {row.country} · {row.network === "visa" ? "Visa" : "Mastercard"}
                       </div>
                     </td>
-                    <td className="px-3 py-4">{formatText(row.issuePrice)}</td>
-                    <td className="px-3 py-4">{formatText(row.maintenancePrice)}</td>
-                    <td className="px-3 py-4">
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13.5px] text-foreground/85">{formatText(row.issuePrice)}</td>
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13.5px] text-foreground/85">{formatText(row.maintenancePrice)}</td>
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13.5px] text-foreground/85">
                       <span title={row.fundingFeeTooltip ?? undefined}>
                         {formatText(row.fundingFee)}
                       </span>
                     </td>
-                    <td className="px-3 py-4">{formatFunding(row.fundingMethods)}</td>
-                    <td className="px-3 py-4">{formatKyc(row.kyc)}</td>
-                    <td className="px-3 py-4">{formatText(row.validity)}</td>
-                    <td className="px-3 py-4">
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13.5px] text-foreground/85">{formatFunding(row.fundingMethods)}</td>
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13.5px] text-foreground/85">{formatKyc(row.kyc)}</td>
+                    <td className="border-b border-border/50 px-3 py-[18px] text-[13.5px] text-foreground/85">{formatText(row.validity)}</td>
+                    <td className="border-b border-border/50 px-3 py-[18px]">
                       <ServicesCell items={row.payableServices} />
                     </td>
-                    <td className="px-3 py-4">
+                    <td className="border-b border-border/50 px-3 py-[18px]">
                       <ScoreCell reviews={row.reviews} />
                     </td>
-                    <td className="px-3 py-4">
+                    <td className="border-b border-border/50 px-3 py-[18px]">
                       <div className="flex items-center justify-end gap-2 whitespace-nowrap">
                         <button
                           type="button"
                           onClick={() => setExpanded(isOpen ? null : row.slug)}
-                          className="rounded-md border border-border px-2.5 py-1.5 text-xs text-foreground hover:bg-muted"
+                          className="inline-flex h-8 items-center rounded-lg px-2.5 text-[12px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                           aria-expanded={isOpen}
                         >
                           {isOpen ? "Скрыть" : "Развернуть"}
@@ -134,7 +137,7 @@ export function RatingTable({ rows, onReset }: Props) {
                         <Link
                           to="/cards/$slug"
                           params={{ slug: row.slug }}
-                          className="rounded-md border border-border px-2.5 py-1.5 text-xs text-foreground hover:bg-muted"
+                          className="inline-flex h-8 items-center rounded-lg border border-border px-2.5 text-[12px] font-medium text-foreground transition-colors hover:bg-muted"
                         >
                           Обзор
                         </Link>
@@ -142,7 +145,7 @@ export function RatingTable({ rows, onReset }: Props) {
                           href={row.affiliateUrl}
                           target="_blank"
                           rel="noopener noreferrer nofollow sponsored"
-                          className="rounded-md bg-foreground px-2.5 py-1.5 text-xs text-background hover:opacity-90"
+                          className="inline-flex h-8 items-center rounded-lg bg-foreground px-3 text-[12px] font-medium text-background transition-opacity hover:opacity-90"
                         >
                           Оформить
                         </a>
@@ -150,25 +153,27 @@ export function RatingTable({ rows, onReset }: Props) {
                     </td>
                   </tr>
                   {isOpen && (
-                    <tr className="border-b border-border bg-muted/30">
-                      <td colSpan={COLUMNS.length} className="px-3 py-4">
-                        <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                          Полный список оплачиваемых сервисов
-                        </div>
-                        {row.payableServices.length === 0 ? (
-                          <div className="mt-2 text-sm text-muted-foreground">{NO_DATA}</div>
-                        ) : (
-                          <div className="mt-2 flex flex-wrap gap-1.5">
-                            {row.payableServices.map((s) => (
-                              <span
-                                key={s.id}
-                                className="rounded border border-border bg-background px-2 py-0.5 text-xs text-foreground"
-                              >
-                                {s.name}
-                              </span>
-                            ))}
+                    <tr className="bg-muted/40">
+                      <td colSpan={COLUMNS.length} className="border-b border-border/50 px-3 py-4">
+                        <div className="rounded-lg bg-background/60 px-4 py-3 ring-1 ring-inset ring-border/60">
+                          <div className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground/80">
+                            Полный список оплачиваемых сервисов
                           </div>
-                        )}
+                          {row.payableServices.length === 0 ? (
+                            <div className="mt-2 text-sm text-muted-foreground">{NO_DATA}</div>
+                          ) : (
+                            <div className="mt-2.5 flex flex-wrap gap-1.5">
+                              {row.payableServices.map((s) => (
+                                <span
+                                  key={s.id}
+                                  className="inline-flex h-6 items-center rounded-md border border-border/70 bg-background px-2 text-[12px] text-foreground/85"
+                                >
+                                  {s.name}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   )}
@@ -180,12 +185,12 @@ export function RatingTable({ rows, onReset }: Props) {
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-4 flex items-center justify-end gap-1 text-sm">
+        <div className="mt-5 flex items-center justify-end gap-1 text-sm">
           <button
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="rounded-md border border-border px-2 py-1 text-muted-foreground hover:text-foreground disabled:opacity-40"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-40 disabled:hover:bg-transparent"
             aria-label="Предыдущая страница"
           >
             ‹
@@ -196,10 +201,10 @@ export function RatingTable({ rows, onReset }: Props) {
               type="button"
               onClick={() => setPage(p)}
               className={
-                "rounded-md border px-3 py-1 " +
+                "inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2.5 text-[13px] font-medium transition-colors " +
                 (p === currentPage
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border text-foreground hover:bg-muted")
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground")
               }
             >
               {p}
@@ -209,7 +214,7 @@ export function RatingTable({ rows, onReset }: Props) {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
-            className="rounded-md border border-border px-2 py-1 text-muted-foreground hover:text-foreground disabled:opacity-40"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-40 disabled:hover:bg-transparent"
             aria-label="Следующая страница"
           >
             ›
