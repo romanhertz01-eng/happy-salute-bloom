@@ -196,11 +196,6 @@ function TableRow({ card, first }: { card: Card; first: boolean }) {
             <div className="mt-0.5 text-xs text-muted-foreground">
               {card.payment_system} · {card.issuer_country}
             </div>
-            {first && (
-              <div className="mt-1 inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
-                Лучшее предложение
-              </div>
-            )}
             <div className="mt-1.5 flex gap-1.5">
               {card.apple_pay && <Apple className="h-3.5 w-3.5 text-muted-foreground" aria-label="Apple Pay" />}
               {card.google_pay && (
