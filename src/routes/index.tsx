@@ -9,6 +9,7 @@ import { RatingSection } from "@/components/nhcard/Rating";
 import { TrustSection } from "@/components/nhcard/Trust";
 import { CalculatorSection } from "@/components/nhcard/Calculator";
 import { MethodologySection } from "@/components/nhcard/Methodology";
+import { FaqSection, FAQ_ITEMS } from "@/components/nhcard/Faq";
 import { cardsQueryOptions } from "@/lib/cards";
 
 export const Route = createFileRoute("/")({
@@ -24,6 +25,20 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content: "Мы не продаём карты. Мы проверяем, сравниваем и помогаем выбрать.",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ_ITEMS.map((it) => ({
+            "@type": "Question",
+            name: it.q,
+            acceptedAnswer: { "@type": "Answer", text: it.a },
+          })),
+        }),
       },
     ],
   }),
@@ -57,6 +72,7 @@ function HomeContent() {
       <TrustSection />
       <CalculatorSection cards={cards} />
       <MethodologySection />
+      <FaqSection />
     </>
   );
 }
