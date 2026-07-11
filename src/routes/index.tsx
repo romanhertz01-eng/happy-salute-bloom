@@ -15,13 +15,13 @@ import { cardsQueryOptions } from "@/lib/cards";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NHcard — независимый рейтинг зарубежных виртуальных карт 2026" },
+      { title: "EraPay — независимый рейтинг зарубежных виртуальных карт 2026" },
       {
         name: "description",
         content:
           "Сравнение 15 зарубежных виртуальных карт для россиян: тарифы, лимиты, способы пополнения. Проверено редакцией.",
       },
-      { property: "og:title", content: "NHcard — рейтинг зарубежных виртуальных карт 2026" },
+      { property: "og:title", content: "EraPay — рейтинг зарубежных виртуальных карт 2026" },
       {
         property: "og:description",
         content: "Мы не продаём карты. Мы проверяем, сравниваем и помогаем выбрать.",
