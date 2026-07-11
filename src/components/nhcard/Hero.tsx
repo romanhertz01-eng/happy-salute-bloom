@@ -52,23 +52,23 @@ export function Hero({ total }: { total: number }) {
           </div>
 
           <div className="mt-5 flex items-start gap-4 border-b border-border pb-5">
-            <Avatar initials="ИК" />
+            <Avatar initials="НХ" />
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wider text-accent">Автор</div>
-              <div className="mt-0.5 font-serif text-lg font-bold text-primary">Илья Козлов</div>
+              <div className="mt-0.5 font-serif text-lg font-bold text-primary">Никита Хохлов</div>
               <div className="mt-1 text-sm text-muted-foreground">
-                Финансовый журналист. 8 лет пишет про международные платежи и банкинг.
+                Главный редактор NHcard. Пишет про международные платежи и финтех.
               </div>
             </div>
           </div>
 
           <div className="mt-5 flex items-start gap-4">
-            <Avatar initials="АС" tone="accent" />
+            <Avatar initials="ХА" tone="accent" />
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wider text-accent">Фактчек</div>
-              <div className="mt-0.5 font-serif text-lg font-bold text-primary">Анна Соколова</div>
+              <div className="mt-0.5 font-serif text-lg font-bold text-primary">Хадиджа Алиева</div>
               <div className="mt-1 text-sm text-muted-foreground">
-                Проверила тарифы и условия эмитентов, {formatToday()}.
+                Финтех-аналитик NHcard. Проверила тарифы и условия эмитентов, {formatToday()}.
               </div>
             </div>
           </div>
