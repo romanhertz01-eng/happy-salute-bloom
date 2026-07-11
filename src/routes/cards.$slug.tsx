@@ -11,8 +11,8 @@ export const Route = createFileRoute("/cards/$slug")({
     const name = (loaderData as { name?: string } | undefined)?.name ?? "Карта";
     return {
       meta: [
-        { title: `${name} — обзор и тарифы · NHcard` },
-        { name: "description", content: `Условия, лимиты и способы пополнения карты ${name}. Проверено редакцией NHcard.` },
+        { title: `${name} — обзор и тарифы · EraPay` },
+        { name: "description", content: `Условия, лимиты и способы пополнения карты ${name}. Проверено редакцией EraPay.` },
       ],
     };
   },
