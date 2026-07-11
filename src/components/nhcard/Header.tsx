@@ -15,10 +15,19 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-[1240px] items-center gap-6 px-4 sm:px-6 lg:px-8">
         <Link
           to="/"
-          className="font-serif text-2xl font-bold tracking-tight text-primary"
-          aria-label="NHcard — на главную"
+          className="flex items-center gap-2"
+          aria-label="EraPay — на главную"
         >
-          NHcard
+          <span
+            aria-hidden="true"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-serif text-lg font-bold text-primary-foreground"
+          >
+            E
+          </span>
+          <span className="font-serif text-2xl font-bold tracking-tight">
+            <span className="text-primary">Era</span>
+            <span className="text-accent">Pay</span>
+          </span>
         </Link>
 
         <nav className="hidden flex-1 items-center justify-center gap-7 lg:flex">
