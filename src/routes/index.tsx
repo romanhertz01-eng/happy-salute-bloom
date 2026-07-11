@@ -56,6 +56,7 @@ function HomeContent() {
       <RatingSection cards={cards} />
       <TrustSection />
       <CalculatorSection cards={cards} />
+      <MethodologySection />
     </>
   );
 }
