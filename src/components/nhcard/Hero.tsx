@@ -17,7 +17,7 @@ export function Hero({ total }: { total: number }) {
 
           <p className="mt-6 max-w-[620px] text-[17px] leading-relaxed text-foreground/75">
             Карты российских банков не принимаются в App&nbsp;Store, Google&nbsp;Play, Netflix, Booking и большинстве
-            зарубежных сервисов. NHcard — независимый мониторинг международных виртуальных карт, которые
+            зарубежных сервисов. EraPay — независимый мониторинг международных виртуальных карт, которые
             доступны из России: сравниваем условия, тарифы и надёжность эмитентов.
           </p>
 
@@ -57,7 +57,7 @@ export function Hero({ total }: { total: number }) {
               <div className="text-[11px] font-semibold uppercase tracking-wider text-accent">Автор</div>
               <div className="mt-0.5 font-serif text-lg font-bold text-primary">Никита Хохлов</div>
               <div className="mt-1 text-sm text-muted-foreground">
-                Главный редактор NHcard. Пишет про международные платежи и финтех.
+                Главный редактор EraPay. Пишет про международные платежи и финтех.
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ export function Hero({ total }: { total: number }) {
               <div className="text-[11px] font-semibold uppercase tracking-wider text-accent">Фактчек</div>
               <div className="mt-0.5 font-serif text-lg font-bold text-primary">Хадиджа Алиева</div>
               <div className="mt-1 text-sm text-muted-foreground">
-                Финтех-аналитик NHcard. Проверила тарифы и условия эмитентов, {formatToday()}.
+                Финтех-аналитик EraPay. Проверила тарифы и условия эмитентов, {formatToday()}.
               </div>
             </div>
           </div>

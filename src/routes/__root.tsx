@@ -77,29 +77,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Мониторинг зарубежных виртуальных карт" },
+      { title: "EraPay — рейтинг зарубежных виртуальных карт для россиян 2026" },
       {
         name: "description",
         content:
-          "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов.",
+          "EraPay — независимый мониторинг зарубежных виртуальных карт для россиян. Рейтинг, сравнение тарифов, калькулятор реальной стоимости и как оформить онлайн.",
       },
-      { property: "og:title", content: "Мониторинг зарубежных виртуальных карт" },
+      { property: "og:title", content: "EraPay — рейтинг зарубежных виртуальных карт 2026" },
       {
         property: "og:description",
         content:
-          "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов.",
+          "EraPay — независимый мониторинг зарубежных виртуальных карт для россиян. Рейтинг, сравнение тарифов, калькулятор реальной стоимости и как оформить онлайн.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Мониторинг зарубежных виртуальных карт" },
-      { name: "twitter:description", content: "Независимый мониторинг зарубежных виртуальных карт для пользователей из России. Сравнение условий, тарифов и поддерживаемых сервисов." },
+      { name: "twitter:title", content: "EraPay — рейтинг зарубежных виртуальных карт 2026" },
+      { name: "twitter:description", content: "EraPay — независимый мониторинг зарубежных виртуальных карт для россиян. Рейтинг, сравнение тарифов, калькулятор реальной стоимости и как оформить онлайн." },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
