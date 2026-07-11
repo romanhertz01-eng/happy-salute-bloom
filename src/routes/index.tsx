@@ -8,6 +8,7 @@ import { Hero } from "@/components/nhcard/Hero";
 import { RatingSection } from "@/components/nhcard/Rating";
 import { TrustSection } from "@/components/nhcard/Trust";
 import { CalculatorSection } from "@/components/nhcard/Calculator";
+import { MethodologySection } from "@/components/nhcard/Methodology";
 import { cardsQueryOptions } from "@/lib/cards";
 
 export const Route = createFileRoute("/")({
@@ -55,6 +56,7 @@ function HomeContent() {
       <RatingSection cards={cards} />
       <TrustSection />
       <CalculatorSection cards={cards} />
+      <MethodologySection />
     </>
   );
 }
